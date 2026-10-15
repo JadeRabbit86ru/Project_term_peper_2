@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "transaction-analyzer"
+version = "0.1.0"
+description = "Курсовая работа: анализ транзакций"
+authors = ["Your Name"]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pandas = "^2.0"
+openpyxl = "^3.1"
+python-dotenv = "^1.0"
+requests = "^2.31"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4"
+flake8 = "^6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
