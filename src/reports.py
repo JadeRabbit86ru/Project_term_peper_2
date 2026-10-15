@@ -58,8 +58,7 @@ def get_expenses_by_category(
     income = sum(
         float(t.get("Сумма операции", 0) or 0)
         for t in transactions
-        if _in_month(t, year, month)
-        and float(t.get("Сумма операции", 0) or 0) > 0
+        if _in_month(t, year, month) and float(t.get("Сумма операции", 0) or 0) > 0
     )
 
     return {

@@ -21,12 +21,14 @@ def get_top_transactions(transactions: list[dict], n: int = 5) -> list[dict]:
         except ValueError:
             formatted_date = date_str
 
-        result.append({
-            "date": formatted_date,
-            "amount": float(tx.get("Сумма операции", 0) or 0),
-            "category": str(tx.get("Категория", "")),
-            "description": str(tx.get("Описание", "")),
-        })
+        result.append(
+            {
+                "date": formatted_date,
+                "amount": float(tx.get("Сумма операции", 0) or 0),
+                "category": str(tx.get("Категория", "")),
+                "description": str(tx.get("Описание", "")),
+            }
+        )
 
     return result
 

@@ -4,8 +4,9 @@ from datetime import datetime
 
 # ---------- Сервис 1: Выгодные категории повышенного кешбэка ----------
 
+
 def analyze_cashback_categories(
-        data: list[dict], year: int, month: int
+    data: list[dict], year: int, month: int
 ) -> dict[str, int]:
     """
     Анализирует, сколько кешбэка можно заработать на каждой категории
@@ -32,9 +33,8 @@ def analyze_cashback_categories(
 
 # ---------- Сервис 2: Инвесткопилка ----------
 
-def investment_bank(
-        month: str, transactions: list[dict], limit: int
-) -> float:
+
+def investment_bank(month: str, transactions: list[dict], limit: int) -> float:
     """
     Возвращает сумму, которую удалось бы отложить в Инвесткопилку.
 
@@ -58,6 +58,7 @@ def investment_bank(
 
 
 # ---------- Сервис 3: Простой поиск ----------
+
 
 def simple_search(transactions: list[dict], query: str) -> list[dict]:
     """Возвращает транзакции, содержащие подстроку в описании или категории."""
@@ -91,8 +92,7 @@ PHONE_PATTERN = re.compile(
 def search_phone_numbers(transactions: list[dict]) -> list[dict]:
     """Возвращает транзакции, содержащие мобильные номера в описании."""
     return [
-        tx for tx in transactions
-        if PHONE_PATTERN.search(str(tx.get("Описание", "")))
+        tx for tx in transactions if PHONE_PATTERN.search(str(tx.get("Описание", "")))
     ]
 
 
