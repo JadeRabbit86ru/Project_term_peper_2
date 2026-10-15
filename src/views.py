@@ -28,25 +28,31 @@ def get_top_transactions(transactions: list[dict], n: int = 5) -> list[dict]:
     return result
 
 
-def get_main_page_view(transactions: list[dict],) -> dict[str, Any]:
+def get_main_page_view(transactions: list[dict], settings: dict) -> dict[str, Any]:
     """
     Формирует JSON для главной страницы:
     приветствие, карты, топ-5 транзакций, курсы валют, цены акций.
     """
     now = datetime.now()
     start = now.replace(day=1)
-    end = now
 
-    # Фильтруем транзакции за текущий месяц
-    month_tx = [
-        t for t in transactions
-        if start <= datetime.strptime(str(t.get("Дата операции", ""))[:10], "%Y-%m-%d") <= end
-    ]
+    month_tx = []
+    for tx in transactions:
+        date_str = str(tx.get("Дата операции", ""))[:10]
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            continue
+        if start <= dt <= now:
+            month_tx.append(tx)
+
+    user_currencies = settings.get("user_currencies", [])
+    user_stocks = settings.get("user_stocks", [])
 
     return {
         "greeting": get_greeting(),
         "cards": get_card_info(month_tx),
         "top_transactions": get_top_transactions(month_tx, 5),
-        "currency_rates": [],  # заполняется через API
-        "stock_prices": [],    # заполняется через API
+        "currency_rates": user_currencies,
+        "stock_prices": user_stocks,
     }
