@@ -2,7 +2,6 @@ import re
 from collections import defaultdict
 from datetime import datetime
 
-
 # ---------- Сервис 1: Выгодные категории повышенного кешбэка ----------
 
 def analyze_cashback_categories(

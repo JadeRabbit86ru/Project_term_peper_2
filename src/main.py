@@ -1,13 +1,10 @@
 import json
+
+from src.services import (analyze_cashback_categories, investment_bank,
+                          search_person_transfers, search_phone_numbers,
+                          simple_search)
 from src.utils import load_transactions_from_excel, load_user_settings
 from src.views import get_main_page_view
-from src.services import (
-    analyze_cashback_categories,
-    investment_bank,
-    simple_search,
-    search_phone_numbers,
-    search_person_transfers,
-)
 
 
 def main():
