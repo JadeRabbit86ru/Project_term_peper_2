@@ -45,7 +45,11 @@ def get_card_info(transactions: list[dict]) -> list[dict]:
             continue
         # Маска вида *1234
         if card not in cards:
-            cards[card] = {"last_digits": card[-4:], "total_spent": 0.0, "cashback": 0.0}
+            cards[card] = {
+                "last_digits": card[-4:],
+                "total_spent": 0.0,
+                "cashback": 0.0,
+            }
         amount = float(t.get("Сумма операции", 0) or 0)
         cashback = float(t.get("Кешбэк", 0) or 0)
         if amount < 0:
@@ -53,11 +57,13 @@ def get_card_info(transactions: list[dict]) -> list[dict]:
             cards[card]["cashback"] += cashback
     result = []
     for card, data in cards.items():
-        result.append({
-            "last_digits": data["last_digits"],
-            "total_spent": round(data["total_spent"], 2),
-            "cashback": round(data["cashback"], 2),
-        })
+        result.append(
+            {
+                "last_digits": data["last_digits"],
+                "total_spent": round(data["total_spent"], 2),
+                "cashback": round(data["cashback"], 2),
+            }
+        )
     return result
 
 
@@ -66,9 +72,7 @@ def load_user_settings(path: str = "user_settings.json") -> dict:
         return json.load(f)
 
 
-def filter_by_date_range(
-    transactions: list[dict], start: str, end: str
-) -> list[dict]:
+def filter_by_date_range(transactions: list[dict], start: str, end: str) -> list[dict]:
     """Фильтрует транзакции по диапазону дат (YYYY-MM-DD)."""
     result = []
     for t in transactions:
