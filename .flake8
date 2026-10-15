@@ -1,0 +1,21 @@
+[flake8]
+max-line-length = 100
+exclude =
+    .git,
+    .venv,
+    venv,
+    __pycache__,
+    .mypy_cache,
+    .pytest_cache,
+    build,
+    dist,
+    .idea,
+    migrations
+ignore =
+    E203,  # пробел перед ':' (конфликт с black)
+    W503,  # перенос строки перед бинарным оператором (конфликт с black)
+    E501   # длина строки (если используете black — он сам следит)
+per-file-ignores =
+    __init__.py: F401
+    test/*: S101
+max-complexity = 10
