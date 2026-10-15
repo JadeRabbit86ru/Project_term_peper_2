@@ -6,7 +6,7 @@ from datetime import datetime
 # ---------- Сервис 1: Выгодные категории повышенного кешбэка ----------
 
 def analyze_cashback_categories(
-    data: list[dict], year: int, month: int
+        data: list[dict], year: int, month: int
 ) -> dict[str, int]:
     """
     Анализирует, сколько кешбэка можно заработать на каждой категории
@@ -34,7 +34,7 @@ def analyze_cashback_categories(
 # ---------- Сервис 2: Инвесткопилка ----------
 
 def investment_bank(
-    month: str, transactions: list[dict], limit: int
+        month: str, transactions: list[dict], limit: int
 ) -> float:
     """
     Возвращает сумму, которую удалось бы отложить в Инвесткопилку.
@@ -77,18 +77,24 @@ def simple_search(transactions: list[dict], query: str) -> list[dict]:
 # ---------- Сервис 4: Поиск по телефонным номерам ----------
 
 PHONE_PATTERN = re.compile(
-    r"(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}"
+    r"(?:\+7|8)"  # +7 или 8
+    r"[\s\-]?"  # разделитель
+    r"\(?\d{3}\)?"  # код оператора (может быть в скобках)
+    r"[\s\-]?"  # разделитель
+    r"\d{2,3}"  # 2 или 3 цифры
+    r"[\s\-]?"  # разделитель
+    r"\d{2}"  # 2 цифры
+    r"[\s\-]?"  # разделитель
+    r"\d{2}"  # 2 цифры
 )
 
 
 def search_phone_numbers(transactions: list[dict]) -> list[dict]:
     """Возвращает транзакции, содержащие мобильные номера в описании."""
-    result = []
-    for t in transactions:
-        desc = str(t.get("Описание", ""))
-        if PHONE_PATTERN.search(desc):
-            result.append(t)
-    return result
+    return [
+        tx for tx in transactions
+        if PHONE_PATTERN.search(str(tx.get("Описание", "")))
+    ]
 
 
 # ---------- Сервис 5: Поиск переводов физлицам ----------
